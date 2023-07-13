@@ -53,6 +53,6 @@ public class StudentRepository {
     }
 
     public List<String> getStudentsByTeacherName(String teacher) {
-        return teacherStudentsMap.get(teacher);
+        return teacherStudentsMap.getOrDefault(teacher,new ArrayList<>());
     }
 }
