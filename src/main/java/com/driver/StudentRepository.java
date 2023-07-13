@@ -26,7 +26,9 @@ public class StudentRepository {
     public void addStudentTeacherPair(String student, String teacher) {
         List<String> currStudents = teacherStudentsMap.getOrDefault(teacher,new ArrayList<>());
         currStudents.add(student);
-        teacherMap.get(teacher).setNumberOfStudents(currStudents.size());
+        Teacher teacher1 = teacherMap.get(teacher);
+        teacher1.setNumberOfStudents(teacher1.getNumberOfStudents()+1);
+        teacherMap.put(teacher,teacher1);
         teacherStudentsMap.put(teacher,currStudents);
     }
 
