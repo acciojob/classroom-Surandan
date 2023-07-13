@@ -41,4 +41,8 @@ public class StudentService {
     public void deleteAllTeachers() {
         studentRepository.deleteAllTeachers();
     }
+
+    public List<String> getStudentsByTeacherName(String teacher) {
+        return studentRepository.getStudentsByTeacherName(teacher);
+    }
 }

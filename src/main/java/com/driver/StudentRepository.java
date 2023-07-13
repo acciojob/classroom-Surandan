@@ -51,4 +51,8 @@ public class StudentRepository {
         teacherMap.clear();
         teacherStudentsMap.clear();
     }
+
+    public List<String> getStudentsByTeacherName(String teacher) {
+        return teacherStudentsMap.get(teacher);
+    }
 }
