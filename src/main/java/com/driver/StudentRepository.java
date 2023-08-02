@@ -12,7 +12,7 @@ public class StudentRepository {
     
     Map<String,Student> studentMap = new HashMap<>();  // "name" : Student
     Map<String,Teacher> teacherMap = new HashMap<>();  // "name" : Teacher
-    Map<String, List<String>> teacherStudentsMap  = new HashMap<>(); // "teacher name" : <stu1.name,stu2.name>
+    Map<String, List<Student>> teacherStudentsMap  = new HashMap<>(); // "teacher name" : <stu1.name,stu2.name>
             
     public void addStudent(Student student) {
         studentMap.put(student.getName(),student);
@@ -24,12 +24,17 @@ public class StudentRepository {
     }
 
     public void addStudentTeacherPair(String student, String teacher) {
-        List<String> currStudents = teacherStudentsMap.getOrDefault(teacher,new ArrayList<>());
-        currStudents.add(student);
+
         Teacher teacher1 = teacherMap.get(teacher);
-        teacher1.setNumberOfStudents(teacher1.getNumberOfStudents()+1);
+        teacher1.setNumberOfStudents(teacher1.getNumberOfStudents() + 1);
         teacherMap.put(teacher,teacher1);
-        teacherStudentsMap.put(teacher,currStudents);
+
+        Student student1  = studentMap.get(student);
+
+
+        List<Student> studentList = teacherStudentsMap.get(teacher);
+        studentList.add(student1);
+        teacherStudentsMap.put(teacher,studentList);
     }
 
     public Student getStudentByName(String name) {
@@ -55,6 +60,11 @@ public class StudentRepository {
     }
 
     public List<String> getStudentsByTeacherName(String teacher) {
-        return teacherStudentsMap.getOrDefault(teacher,new ArrayList<>());
+        List<String> ans = new ArrayList<>();
+        List<Student> studentList = teacherStudentsMap.getOrDefault(teacher,new ArrayList<>());
+        for (Student student : studentList) {
+            ans.add(student.getName());
+        }
+        return ans;
     }
 }
